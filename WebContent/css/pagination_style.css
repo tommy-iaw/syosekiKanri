@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+.pager {
+    display: block;
+    clear:both;
+    margin:30px 0;
+    text-align:center;
+}
+
+.pager span {
+    padding:5px 8px;
+    color:#337ab7;
+    background:#fff;
+    border: 1px solid #ddd;
+    margin: 0px 0px 10px 0px;
+}
+.pager span:hover {
+    cursor:pointer;
+    opacity: 0.8;
+
+}
+
+.pager span.current {
+    color: #eee;
+    background-color: #337ab7;
+}
+.pager span.current:hover {
+    cursor:default;
+}
+
+.pager span.invalid {
+    color:#dcdcdc;
+    background:none;
+}
+.pager span.invalid:hover {
+    cursor:default;
+}
+
+.pager span.ellipsis {
+    color:#000;
+    background:none;
+}
+.pager span.ellipsis:hover {
+    cursor:default;
+}
+
+.pageNum {
+    margin:30px 0;
+    text-align:center;
+}

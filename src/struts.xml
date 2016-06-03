@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN "
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.ui.theme" value="xhtml" />
+	<!--<constant name="struts.custom.i18n.resources" value=""/>-->
+
+	<package extends="struts-default" namespace="/" name="rensyuu">
+
+		<!-- ログイン判定後、チェイン -->
+		<action name="LoginAction" class="com.action.LoginAction"
+			method="execute">
+			<result name="success">home.jsp</result>
+			<result name="error">index.html</result>
+			<result name="inputLendPeriod">input_lend_period.jsp</result>
+		</action>
+
+		<!-- 予約の期間入力確認画面へ遷移 -->
+		<action name="ConfirmLendAction" class="com.action.ConfirmLendAction"
+			method="execute">
+			<result name="success">confirm_lend.jsp</result>
+			<result name="error" type="chain">LoginAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 期間入力画面へ戻る遷移、名前以外のセッションを除去 -->
+		<action name="BackAction6" class="com.action.BackAction6"
+			method="execute">
+			<result name="success" type="chain">LoginAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 借出処理 -->
+		<action name="LendAction" class="com.action.LendAction"
+			method="execute">
+			<result name="success" type="chain">LoginAction</result>
+			<result name="error" type="chain">LoginAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- ログアウトし、ログイン画面へ遷移 -->
+		<action name="LogoutAction" class="com.action.LogoutAction"
+			method="execute">
+			<result name="success">index.html</result>
+		</action>
+
+		<!-- 本一覧画面へ遷移 -->
+		<action name="ItemAction" class="com.action.ItemAction"
+			method="execute">
+			<result name="success">main.jsp</result>
+			<result name="error">home.jsp</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 本詳細画面へ遷移 -->
+		<action name="ItemDetailAction" class="com.action.ItemDetailAction"
+			method="execute">
+			<result name="success">detail_of_book.jsp</result>
+			<result name="error" type="chain">ItemAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 貸出、予約確認画面へ遷移 -->
+		<action name="ConfirmReservationAction" class="com.action.ConfirmReservationAction"
+			method="execute">
+			<result name="success" >confirm_reservation.jsp</result>
+			<result name="error" type="chain">ItemDetailAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 貸出、予約手続き -->
+		<action name="ReservationAction" class="com.action.ReservationAction"
+			method="execute">
+			<result name="success" type="chain">ItemAction</result>
+			<result name="error" type="chain">ItemDetailAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 予約履歴画面へ遷移 -->
+		<action name="MyReservationAction" class="com.action.MyReservationAction"
+			method="execute">
+			<result name="success">my_reservation.jsp</result>
+			<result name="error" type="chain">ItemAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 延長・返却画面へ遷移 -->
+		<action name="GoReturnAction" class="com.action.GoReturnAction"
+			method="execute">
+			<result name="success">return.jsp</result>
+			<result name="error" type="chain">ItemAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 延長処理 -->
+		<action name="ExtensionAction" class="com.action.ExtensionAction"
+			method="execute">
+			<result name="success" type="chain">GoReturnAction</result>
+			<result name="error" type="chain">GoReturnAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 返却処理 -->
+		<action name="ReturnCompletionAction" class="com.action.ReturnCompletionAction"
+			method="execute">
+			<result name="success" type="chain">GoReturnAction</result>
+			<result name="error" type="chain">GoReturnAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 本一覧画面へ戻る遷移、名前以外のセッションを除去 -->
+		<action name="BackAction" class="com.action.BackAction"
+			method="execute">
+			<result name="success" type="chain">ItemAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 本詳細画面へ戻る遷移、名前、タイトル以外のセッションを除去 -->
+		<action name="BackAction2" class="com.action.BackAction2"
+			method="execute">
+			<result name="success" type="chain">ItemDetailAction</result>
+			<result name="loginError">index.html</result>
+		</action>
+
+		<!-- 管理者ログイン判定 -->
+		<action name="AdminLoginAction" class="com.action.AdminLoginAction"
+			method="execute">
+			<result name="success">admin_home.jsp</result>
+			<result name="error">home.jsp</result>
+		</action>
+
+		<!-- 管理者ログアウトをし、ホーム画面へ遷移 -->
+		<action name="AdminLogoutAction" class="com.action.AdminLogoutAction"
+			method="execute">
+			<result name="success">home.jsp</result>
+		</action>
+
+		<!-- 本管理画面へ遷移 -->
+		<action name="GoAdminBookAction" class="com.action.GoAdminBookAction"
+			method="execute">
+			<result name="success">admin_book.jsp</result>
+			<result name="error">admin_home.jsp</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 追加、更新確認画面へ遷移 -->
+		<action name="ConfirmInputAction" class="com.action.ConfirmInputAction"
+			method="execute">
+			<result name="inputConfirm">confirm_insert_book.jsp</result>
+			<result name="updateConfirm">confirm_update_book.jsp</result>
+			<result name="inputError">insert_book.jsp</result>
+			<result name="updateError">update_book.jsp</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 本を追加 -->
+		<action name="CompleteInsertBookAction" class="com.action.CompleteInsertBookAction"
+			method="execute">
+			<result name="success" type="chain">GoAdminBookAction</result>
+			<result name="error">confirm_insert_book.jsp</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 本追加画面へ戻る遷移、名前以外のセッションを除去 -->
+		<action name="BackAction3" class="com.action.BackAction3"
+			method="execute">
+			<result name="success">insert_book.jsp</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 本更新画面へ遷移 -->
+		<action name="GoUpdateBookAction" class="com.action.GoUpdateBookAction"
+			method="execute">
+			<result name="success">update_book.jsp</result>
+			<result name="error" type="chain">GoAdminBookAction</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 本を更新 -->
+		<action name="CompleteUpdateAction" class="com.action.CompleteUpdateAction"
+			method="execute">
+			<result name="success" type="chain">GoAdminBookAction</result>
+			<result name="error">confirm_update_book.jsp</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 本管理顔面へ戻る遷移、名前以外のセッションを除去 -->
+		<action name="BackAction4" class="com.action.BackAction4"
+			method="execute">
+			<result name="success" type="chain">GoAdminBookAction</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 削除画面へ遷移 -->
+		<action name="GoDeleteAction" class="com.action.GoDeleteAction"
+			method="execute">
+			<result name="success">delete_book.jsp</result>
+			<result name="error" type="chain">GoAdminBookAction</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 削除確認画面へ遷移 -->
+		<action name="ConfirmDeleteAction" class="com.action.ConfirmDeleteAction"
+			method="execute">
+			<result name="success">confirm_delete_book.jsp</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 削除処理（非表示にする） -->
+		<action name="CompleteDeleteAction" class="com.action.CompleteDeleteAction"
+			method="execute">
+			<result name="success" type="chain">GoAdminBookAction</result>
+			<result name="error" type="chain">BackAction5</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+		<!-- 本削除画面へ戻る遷移、名前以外のセッションを除去 -->
+		<action name="BackAction5" class="com.action.BackAction5"
+			method="execute">
+			<result name="success" type="chain">GoDeleteAction</result>
+			<result name="loginError">home.jsp</result>
+		</action>
+
+	</package>
+</struts>
